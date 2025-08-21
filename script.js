@@ -1,141 +1,141 @@
-// Estrutura do curso organizada por módulos
+// Course structure organized by modules
 const courseStructure = {
     modules: [
         {
             id: 'module-1',
-            title: 'Fundamentos de Avaliação',
+            title: 'Evaluation Fundamentals',
             icon: 'fas fa-lightbulb',
             lessons: [
-                { id: 'lesson-1.1', title: 'O que é Avaliação?', file: 'content/lesson-1.1-what-is-evaluation.md' },
-                { id: 'lesson-1.2', title: 'Três Abismos do Desenvolvimento', file: 'content/lesson-1.2-three-gulfs-of-llm-pipeline-development.md' },
-                { id: 'lesson-1.3', title: 'Por que a Avaliação é Desafiadora?', file: 'content/lesson-1.3-why-llm-pipeline-evaluation-is-challenging.md' },
-                { id: 'lesson-1.4', title: 'Ciclo de Vida da Avaliação', file: 'content/lesson-1.4-llm-evaluation-lifecycle.md' },
-                { id: 'lesson-1.5', title: 'Resumo', file: 'content/lesson-1.5-summary.md' }
+                { id: 'lesson-1.1', title: 'What is Evaluation?', file: 'content/lesson-1.1-what-is-evaluation.md' },
+                { id: 'lesson-1.2', title: 'Three Gulfs of Development', file: 'content/lesson-1.2-three-gulfs-of-llm-pipeline-development.md' },
+                { id: 'lesson-1.3', title: 'Why Evaluation is Challenging?', file: 'content/lesson-1.3-why-llm-pipeline-evaluation-is-challenging.md' },
+                { id: 'lesson-1.4', title: 'Evaluation Lifecycle', file: 'content/lesson-1.4-llm-evaluation-lifecycle.md' },
+                { id: 'lesson-1.5', title: 'Summary', file: 'content/lesson-1.5-summary.md' }
             ]
         },
         {
             id: 'module-2',
-            title: 'Compreendendo LLMs',
+            title: 'Understanding LLMs',
             icon: 'fas fa-brain',
             lessons: [
-                { id: 'lesson-2.1', title: 'Pontos Fortes e Fracos', file: 'content/lesson-2.1-strengths-and-weaknesses-of-llms.md' },
-                { id: 'lesson-2.2', title: 'Fundamentos de Prompting', file: 'content/lesson-2.2-prompting-fundamentals.md' },
-                { id: 'lesson-2.3', title: 'Definindo Métricas de Avaliação', file: 'content/lesson-2.3-defining-good-types-of-evaluation-metrics.md' },
-                { id: 'lesson-2.4', title: 'Avaliações Centradas em Fundação vs Aplicação', file: 'content/lesson-2.4-foundation-vs-application-centric-evals.md' },
-                { id: 'lesson-2.5', title: 'Elicitando Labels para Métricas', file: 'content/lesson-2.5-eliciting-labels-for-metric-computation.md' },
-                { id: 'lesson-2.6', title: 'Resumo', file: 'content/lesson-2.6-summary.md' },
-                { id: 'lesson-2.7', title: 'Glossário de Termos', file: 'content/lesson-2.7-glossary-of-terms.md' },
-                { id: 'lesson-2.8', title: 'Exercícios', file: 'content/lesson-2.8-exercises.md' }
+                { id: 'lesson-2.1', title: 'Strengths and Weaknesses', file: 'content/lesson-2.1-strengths-and-weaknesses-of-llms.md' },
+                { id: 'lesson-2.2', title: 'Prompting Fundamentals', file: 'content/lesson-2.2-prompting-fundamentals.md' },
+                { id: 'lesson-2.3', title: 'Defining Evaluation Metrics', file: 'content/lesson-2.3-defining-good-types-of-evaluation-metrics.md' },
+                { id: 'lesson-2.4', title: 'Foundation vs Application Centered Evals', file: 'content/lesson-2.4-foundation-vs-application-centric-evals.md' },
+                { id: 'lesson-2.5', title: 'Eliciting Labels for Metrics', file: 'content/lesson-2.5-eliciting-labels-for-metric-computation.md' },
+                { id: 'lesson-2.6', title: 'Summary', file: 'content/lesson-2.6-summary.md' },
+                { id: 'lesson-2.7', title: 'Glossary of Terms', file: 'content/lesson-2.7-glossary-of-terms.md' },
+                { id: 'lesson-2.8', title: 'Exercises', file: 'content/lesson-2.8-exercises.md' }
             ]
         },
         {
             id: 'module-3',
-            title: 'Análise de Erros',
+            title: 'Error Analysis',
             icon: 'fas fa-search',
             lessons: [
-                { id: 'lesson-3.1', title: 'Bootstrap de Dataset Inicial', file: 'content/lesson-3.1-bootstrap-a-starting-dataset.md' },
-                { id: 'lesson-3.2', title: 'Codificação Aberta: Ler e Rotular Traços', file: 'content/lesson-3.2-open-coding-read-and-label-traces.md' },
-                { id: 'lesson-3.3', title: 'Codificação Axial: Estruturar e Mesclar Modos de Falha', file: 'content/lesson-3.3-axial-coding-structuring-and-merging-failure-modes.md' },
-                { id: 'lesson-3.4', title: 'Rotulando Traços Após Estruturar Modos de Falha', file: 'content/lesson-3.4-labeling-traces-after-structuring-failure-modes.md' },
-                { id: 'lesson-3.5', title: 'Iteração e Refinamento da Taxonomia de Falhas', file: 'content/lesson-3.5-iteration-and-refining-the-failure-taxonomy.md' },
-                { id: 'lesson-3.6', title: 'Armadilhas Comuns', file: 'content/lesson-3.6-common-pitfalls.md' },
-                { id: 'lesson-3.7', title: 'Resumo da Análise de Erros', file: 'content/lesson-3.7-summary-of-error-analysis.md' },
-                { id: 'lesson-3.8', title: 'Exercícios', file: 'content/lesson-3.8-exercises.md' }
+                { id: 'lesson-3.1', title: 'Bootstrap Initial Dataset', file: 'content/lesson-3.1-bootstrap-a-starting-dataset.md' },
+                { id: 'lesson-3.2', title: 'Open Coding: Read and Label Traces', file: 'content/lesson-3.2-open-coding-read-and-label-traces.md' },
+                { id: 'lesson-3.3', title: 'Axial Coding: Structure and Merge Failure Modes', file: 'content/lesson-3.3-axial-coding-structuring-and-merging-failure-modes.md' },
+                { id: 'lesson-3.4', title: 'Labeling Traces After Structuring Failure Modes', file: 'content/lesson-3.4-labeling-traces-after-structuring-failure-modes.md' },
+                { id: 'lesson-3.5', title: 'Iteration and Refining Failure Taxonomy', file: 'content/lesson-3.5-iteration-and-refining-the-failure-taxonomy.md' },
+                { id: 'lesson-3.6', title: 'Common Pitfalls', file: 'content/lesson-3.6-common-pitfalls.md' },
+                { id: 'lesson-3.7', title: 'Error Analysis Summary', file: 'content/lesson-3.7-summary-of-error-analysis.md' },
+                { id: 'lesson-3.8', title: 'Exercises', file: 'content/lesson-3.8-exercises.md' }
             ]
         },
         {
             id: 'module-4',
-            title: 'Avaliação Colaborativa',
+            title: 'Collaborative Evaluation',
             icon: 'fas fa-users',
             lessons: [
-                { id: 'lesson-4.1', title: 'Ditadores Benevolentes às Vezes são Preferíveis', file: 'content/lesson-4.1-benevolent-dictators-are-sometimes-preferable.md' },
-                { id: 'lesson-4.2', title: 'Um Fluxo de Trabalho de Anotação Colaborativa', file: 'content/lesson-4.2-a-collaborative-annotation-workflow.md' },
-                { id: 'lesson-4.3', title: 'Medindo Concordância Inter-Anotador', file: 'content/lesson-4.3-measuring-inter-annotator-agreement.md' },
-                { id: 'lesson-4.4', title: 'Facilitando Sessões de Alinhamento e Resolvendo Desacordos', file: 'content/lesson-4.4-facilitating-alignment-sessions-and-resolving-disagreements.md' },
-                { id: 'lesson-4.5', title: 'Conectando Labels Colaborativos a Avaliadores Automatizados', file: 'content/lesson-4.5-connecting-collaborative-labels-to-automated-evaluators.md' },
-                { id: 'lesson-4.6', title: 'Armadilhas Comuns na Avaliação Colaborativa', file: 'content/lesson-4.6-common-pitfalls-in-collaborative-evaluation.md' },
-                { id: 'lesson-4.7', title: 'Resumo', file: 'content/lesson-4.7-summary.md' },
-                { id: 'lesson-4.8', title: 'Exercícios', file: 'content/lesson-4.8-exercises.md' }
+                { id: 'lesson-4.1', title: 'Benevolent Dictators are Sometimes Preferable', file: 'content/lesson-4.1-benevolent-dictators-are-sometimes-preferable.md' },
+                { id: 'lesson-4.2', title: 'A Collaborative Annotation Workflow', file: 'content/lesson-4.2-a-collaborative-annotation-workflow.md' },
+                { id: 'lesson-4.3', title: 'Measuring Inter-Annotator Agreement', file: 'content/lesson-4.3-measuring-inter-annotator-agreement.md' },
+                { id: 'lesson-4.4', title: 'Facilitating Alignment Sessions and Resolving Disagreements', file: 'content/lesson-4.4-facilitating-alignment-sessions-and-resolving-disagreements.md' },
+                { id: 'lesson-4.5', title: 'Connecting Collaborative Labels to Automated Evaluators', file: 'content/lesson-4.5-connecting-collaborative-labels-to-automated-evaluators.md' },
+                { id: 'lesson-4.6', title: 'Common Pitfalls in Collaborative Evaluation', file: 'content/lesson-4.6-common-pitfalls-in-collaborative-evaluation.md' },
+                { id: 'lesson-4.7', title: 'Summary', file: 'content/lesson-4.7-summary.md' },
+                { id: 'lesson-4.8', title: 'Exercises', file: 'content/lesson-4.8-exercises.md' }
             ]
         },
         {
             id: 'module-5',
-            title: 'Métricas e Avaliação',
+            title: 'Metrics and Evaluation',
             icon: 'fas fa-chart-line',
             lessons: [
-                { id: 'lesson-5.1', title: 'Definindo as Métricas Certas', file: 'content/lesson-5.1-defining-right-metrics.md' },
-                { id: 'lesson-5.2', title: 'Implementando Métricas', file: 'content/lesson-5.2-implementing-metrics.md' },
-                { id: 'lesson-5.3', title: 'LLM como Juiz: Prompts', file: 'content/lesson-5.3-llm_as_judge_prompts.md' },
-                { id: 'lesson-5.4', title: 'Divisões de Dados e LLM como Juiz', file: 'content/lesson-5.4_data_splits_llm_as_judge.md' },
-                { id: 'lesson-5.5', title: 'Refinamento Iterativo de Prompts', file: 'content/lesson-5.5_iterative_prompt_refinement.md' },
-                { id: 'lesson-5.6', title: 'Sucesso Real com Juízes Imperfeitos', file: 'content/lesson-5.6_true_success_with_imperfect_judges.md' },
-                { id: 'lesson-5.7', title: 'Estimativa de Taxa de Sucesso em Python', file: 'content/lesson-5.7_python_success_rate_estimation.md' },
-                { id: 'lesson-5.8', title: 'Métricas por Grupo', file: 'content/lesson-5.8_groupwise_metrics.md' },
-                { id: 'lesson-5.9', title: 'Armadilhas Comuns', file: 'content/lesson-5.9_common_pitfalls.md' },
-                { id: 'lesson-5.10', title: 'Resumo', file: 'content/lesson_5_10_summary.md' }
+                { id: 'lesson-5.1', title: 'Defining the Right Metrics', file: 'content/lesson-5.1-defining-right-metrics.md' },
+                { id: 'lesson-5.2', title: 'Implementing Metrics', file: 'content/lesson_5_2_implementing_metrics.md' },
+                { id: 'lesson-5.3', title: 'LLM as Judge: Prompts', file: 'content/lesson_5_3_llm_as_judge_prompts.md' },
+                { id: 'lesson-5.4', title: 'Data Splits and LLM as Judge', file: 'content/lesson_5_4_data_splits_llm_as_judge.md' },
+                { id: 'lesson-5.5', title: 'Iterative Prompt Refinement', file: 'content/lesson_5_5_iterative_prompt_refinement.md' },
+                { id: 'lesson-5.6', title: 'True Success with Imperfect Judges', file: 'content/lesson_5_6_true_success_with_imperfect_judges.md' },
+                { id: 'lesson-5.7', title: 'Python Success Rate Estimation', file: 'content/lesson_5_7_python_success_rate_estimation.md' },
+                { id: 'lesson-5.8', title: 'Groupwise Metrics', file: 'content/lesson_5_8_groupwise_metrics.md' },
+                { id: 'lesson-5.9', title: 'Common Pitfalls', file: 'content/lesson_5_9_common_pitfalls.md' },
+                { id: 'lesson-5.10', title: 'Summary', file: 'content/lesson_5_10_summary.md' }
             ]
         },
         {
             id: 'module-6',
-            title: 'Avaliação Multi-Turn',
+            title: 'Multi-Turn Evaluation',
             icon: 'fas fa-comments',
             lessons: [
-                { id: 'lesson-6.1', title: 'Visão Geral', file: 'content/lesson-6.1_overview_multi_turn.md' },
-                { id: 'lesson-6.2', title: 'Estratégias Práticas', file: 'content/lesson-6.2_practical_strategies_multi_turn.md' },
-                { id: 'lesson-6.3', title: 'Avaliação Automatizada', file: 'content/lesson-6.3_automated_eval_multi_turn.md' },
-                { id: 'lesson-6.4', title: 'Armadilhas', file: 'content/lesson-6.4_pitfalls_multi_turn.md' },
-                { id: 'lesson-6.5', title: 'Resumo', file: 'content/lesson-6.5_summary.md' }
+                { id: 'lesson-6.1', title: 'Overview', file: 'content/lesson_6_1_overview_multi_turn.md' },
+                { id: 'lesson-6.2', title: 'Practical Strategies', file: 'content/lesson_6_2_practical_strategies_multi_turn.md' },
+                { id: 'lesson-6.3', title: 'Automated Evaluation', file: 'content/lesson_6_3_automated_eval_multi_turn.md' },
+                { id: 'lesson-6.4', title: 'Pitfalls', file: 'content/lesson_6_4_pitfalls_multi_turn.md' },
+                { id: 'lesson-6.5', title: 'Summary', file: 'content/lesson_6_5_summary.md' }
             ]
         },
         {
             id: 'module-7',
-            title: 'Avaliação RAG',
+            title: 'RAG Evaluation',
             icon: 'fas fa-database',
             lessons: [
-                { id: 'lesson-7.1', title: 'Visão Geral', file: 'content/lesson-7.1_overview_rag.md' },
-                { id: 'lesson-7.2', title: 'Pares de Consulta-Resposta Sintéticos', file: 'content/lesson-7.2_synth_query_answer_pairs.md' },
-                { id: 'lesson-7.3', title: 'Métricas de Recuperação', file: 'content/lesson-7.3_metrics_retrieval.md' },
-                { id: 'lesson-7.4', title: 'Qualidade de Geração', file: 'content/lesson-7.4_generation_quality.md' },
-                { id: 'lesson-7.5', title: 'Armadilhas Comuns', file: 'content/lesson-7.5_common_pitfalls.md' },
-                { id: 'lesson-7.6', title: 'Resumo', file: 'content/lesson-7.6_summary.md' },
-                { id: 'lesson-7.7', title: 'Exercícios', file: 'content/lesson-7.7_exercises.md' }
+                { id: 'lesson-7.1', title: 'Overview', file: 'content/lesson_7_1_overview_rag.md' },
+                { id: 'lesson-7.2', title: 'Synthetic Query-Answer Pairs', file: 'content/lesson_7_2_synth_query_answer_pairs.md' },
+                { id: 'lesson-7.3', title: 'Retrieval Metrics', file: 'content/lesson_7_3_metrics_retrieval.md' },
+                { id: 'lesson-7.4', title: 'Generation Quality', file: 'content/lesson_7_4_generation_quality.md' },
+                { id: 'lesson-7.5', title: 'Common Pitfalls', file: 'content/lesson_7_5_common_pitfalls.md' },
+                { id: 'lesson-7.6', title: 'Summary', file: 'content/lesson_7_6_summary.md' },
+                { id: 'lesson-7.7', title: 'Exercises', file: 'content/lesson_7_7_exercises.md' }
             ]
         },
         {
             id: 'module-8',
-            title: 'Sistemas Agênticos',
+            title: 'Agentic Systems',
             icon: 'fas fa-cogs',
             lessons: [
-                { id: 'lesson-8.1', title: 'Chamada de Ferramentas', file: 'content/lesson-8.1_tool_calling.md' },
-                { id: 'lesson-8.2', title: 'Sistemas Agênticos', file: 'content/lesson-8.2_agentic_systems.md' },
-                { id: 'lesson-8.3', title: 'Debugging de Pipelines Multi-Etapa', file: 'content/lesson-8.3_debugging_multi_step_pipelines.md' },
-                { id: 'lesson-8.4', title: 'Modalidades', file: 'content/lesson-8.4_modalities.md' },
-                { id: 'lesson-8.5', title: 'Armadilhas Comuns', file: 'content/lesson-8.5_common_pitfalls.md' },
-                { id: 'lesson-8.6', title: 'Resumo', file: 'content/lesson-8.6_summary.md' }
+                { id: 'lesson-8.1', title: 'Tool Calling', file: 'content/lesson_8_1_tool_calling.md' },
+                { id: 'lesson-8.2', title: 'Agentic Systems', file: 'content/lesson_8_2_agentic_systems.md' },
+                { id: 'lesson-8.3', title: 'Debugging Multi-Step Pipelines', file: 'content/lesson_8_3_debugging_multi_step_pipelines.md' },
+                { id: 'lesson-8.4', title: 'Modalities', file: 'content/lesson_8_4_modalities.md' },
+                { id: 'lesson-8.5', title: 'Common Pitfalls', file: 'content/lesson_8_5_common_pitfalls.md' },
+                { id: 'lesson-8.6', title: 'Summary', file: 'content/lesson_8_6_summary.md' }
             ]
         },
         {
             id: 'module-9',
-            title: 'Produção e Monitoramento',
+            title: 'Production and Monitoring',
             icon: 'fas fa-rocket',
             lessons: [
-                { id: 'lesson-9.1', title: 'CI como Rede de Segurança', file: 'content/lesson-9.1_ci_safety_net.md' },
-                { id: 'lesson-9.2', title: 'CD e Monitoramento Online', file: 'content/lesson-9.2_cd_online_monitoring.md' },
-                { id: 'lesson-9.3', title: 'Roda de Melhoria Contínua', file: 'content/lesson-9.3_continuous_improvement_flywheel.md' },
-                { id: 'lesson-9.4', title: 'Armadilhas Práticas na Avaliação de Produção', file: 'content/lesson-9.4_practical_pitfalls_production_eval.md' },
-                { id: 'lesson-9.5', title: 'Resumo', file: 'content/lesson-9.5_summary.md' }
+                { id: 'lesson-9.1', title: 'CI as Safety Net', file: 'content/lesson_9_1_ci_safety_net.md' },
+                { id: 'lesson-9.2', title: 'CD and Online Monitoring', file: 'content/lesson_9_2_cd_online_monitoring.md' },
+                { id: 'lesson-9.3', title: 'Continuous Improvement Flywheel', file: 'content/lesson_9_3_continuous_improvement_flywheel.md' },
+                { id: 'lesson-9.4', title: 'Practical Pitfalls in Production Evaluation', file: 'content/lesson_9_4_practical_pitfalls_production_eval.md' },
+                { id: 'lesson-9.5', title: 'Summary', file: 'content/lesson_9_5_summary.md' }
             ]
         }
     ]
 };
 
-// Estado da aplicação
+// Application state
 let currentLesson = null;
 let completedLessons = new Set();
 let currentModuleIndex = 0;
 let currentLessonIndex = 0;
 
-// Inicialização
+// Initialization
 document.addEventListener('DOMContentLoaded', function() {
     loadProgress();
     renderSidebar();
@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', function() {
     setupEventListeners();
 });
 
-// Carregar progresso salvo
+// Load saved progress
 function loadProgress() {
     const saved = localStorage.getItem('ai-evals-progress');
     if (saved) {
@@ -151,12 +151,12 @@ function loadProgress() {
     }
 }
 
-// Salvar progresso
+// Save progress
 function saveProgress() {
     localStorage.setItem('ai-evals-progress', JSON.stringify([...completedLessons]));
 }
 
-// Renderizar sidebar
+// Render sidebar
 function renderSidebar() {
     const moduleList = document.getElementById('module-list');
     moduleList.innerHTML = '';
@@ -169,7 +169,7 @@ function renderSidebar() {
     updateOverallProgress();
 }
 
-// Criar elemento de módulo
+// Create module element
 function createModuleElement(module, moduleIndex) {
     const moduleDiv = document.createElement('div');
     moduleDiv.className = 'module';
@@ -210,13 +210,13 @@ function createModuleElement(module, moduleIndex) {
     return moduleDiv;
 }
 
-// Alternar módulo expandido/colapsado
+// Toggle module expanded/collapsed
 function toggleModule(moduleId) {
     const module = document.getElementById(moduleId);
     module.classList.toggle('expanded');
 }
 
-// Carregar aula
+// Load lesson
 async function loadLesson(lessonId, moduleIndex, lessonIndex) {
     const lesson = courseStructure.modules[moduleIndex].lessons[lessonIndex];
     
@@ -226,16 +226,16 @@ async function loadLesson(lessonId, moduleIndex, lessonIndex) {
     currentModuleIndex = moduleIndex;
     currentLessonIndex = lessonIndex;
 
-    // Atualizar navegação
+    // Update navigation
     updateNavigation();
     
-    // Atualizar breadcrumb
+    // Update breadcrumb
     const module = courseStructure.modules[moduleIndex];
     document.getElementById('breadcrumb').innerHTML = `
         <span>${module.title}</span> > <span>${lesson.title}</span>
     `;
 
-    // Carregar conteúdo da aula
+    // Load lesson content
     try {
         const response = await fetch(lesson.file);
         if (!response.ok) {
@@ -248,28 +248,28 @@ async function loadLesson(lessonId, moduleIndex, lessonIndex) {
             <div class="lesson-markdown">${html}</div>
         `;
 
-        // Atualizar estado dos botões
+        // Update button states
         updateLessonControls();
         
-        // Atualizar sidebar
+        // Update sidebar
         renderSidebar();
         
-        // Scroll para o topo
+        // Scroll to top
         window.scrollTo(0, 0);
         
     } catch (error) {
-        console.error('Erro ao carregar aula:', error);
+        console.error('Error loading lesson:', error);
         document.getElementById('lesson-content').innerHTML = `
             <div class="error-message">
-                <h2>Erro ao carregar aula</h2>
-                <p>Não foi possível carregar o conteúdo da aula "${lesson.title}".</p>
-                <p>Erro: ${error.message}</p>
+                <h2>Error loading lesson</h2>
+                <p>Could not load the content of lesson "${lesson.title}".</p>
+                <p>Error: ${error.message}</p>
             </div>
         `;
     }
 }
 
-// Converter Markdown para HTML (simplificado)
+// Convert Markdown to HTML (simplified)
 function convertMarkdownToHtml(markdown) {
     let html = markdown;
     
@@ -310,7 +310,7 @@ function convertMarkdownToHtml(markdown) {
     return html;
 }
 
-// Atualizar navegação
+// Update navigation
 function updateNavigation() {
     const prevBtn = document.getElementById('prev-lesson');
     const nextBtn = document.getElementById('next-lesson');
@@ -319,23 +319,23 @@ function updateNavigation() {
     nextBtn.disabled = currentLessonIndex === courseStructure.modules[currentModuleIndex].lessons.length - 1;
 }
 
-// Atualizar controles da aula
+// Update lesson controls
 function updateLessonControls() {
     const markCompleteBtn = document.getElementById('mark-complete');
     const isCompleted = completedLessons.has(currentLesson.id);
     
     if (isCompleted) {
-        markCompleteBtn.innerHTML = '<i class="fas fa-undo"></i> Marcar como Incompleto';
+        markCompleteBtn.innerHTML = '<i class="fas fa-undo"></i> Mark as Incomplete';
         markCompleteBtn.classList.remove('btn-primary');
         markCompleteBtn.classList.add('btn-secondary');
     } else {
-        markCompleteBtn.innerHTML = '<i class="fas fa-check"></i> Marcar como Concluído';
+        markCompleteBtn.innerHTML = '<i class="fas fa-check"></i> Mark as Complete';
         markCompleteBtn.classList.remove('btn-secondary');
         markCompleteBtn.classList.add('btn-primary');
     }
 }
 
-// Marcar aula como concluída/incompleta
+// Mark lesson as completed/incomplete
 function toggleLessonCompletion() {
     if (!currentLesson) return;
     
@@ -352,7 +352,7 @@ function toggleLessonCompletion() {
     updateStats();
 }
 
-// Navegar para aula anterior
+// Navigate to previous lesson
 function goToPreviousLesson() {
     if (currentLessonIndex > 0) {
         loadLesson(
@@ -363,7 +363,7 @@ function goToPreviousLesson() {
     }
 }
 
-// Navegar para próxima aula
+// Navigate to next lesson
 function goToNextLesson() {
     if (currentLessonIndex < courseStructure.modules[currentModuleIndex].lessons.length - 1) {
         loadLesson(
@@ -374,37 +374,37 @@ function goToNextLesson() {
     }
 }
 
-// Atualizar progresso geral
+// Update overall progress
 function updateOverallProgress() {
     const totalLessons = courseStructure.modules.reduce((total, module) => total + module.lessons.length, 0);
     const completedCount = completedLessons.size;
     const progressPercent = totalLessons > 0 ? Math.round((completedCount / totalLessons) * 100) : 0;
     
     document.getElementById('overall-progress').style.width = `${progressPercent}%`;
-    document.getElementById('progress-text').textContent = `${progressPercent}% completo`;
+    document.getElementById('progress-text').textContent = `${progressPercent}% complete`;
 }
 
-// Atualizar estatísticas
+// Update statistics
 function updateStats() {
     const totalLessons = courseStructure.modules.reduce((total, module) => total + module.lessons.length, 0);
     const totalModules = courseStructure.modules.length;
-    const estimatedHours = Math.round(totalLessons * 0.5); // 30 min por aula
+    const estimatedHours = Math.round(totalLessons * 0.5); // 30 min per lesson
     
     document.getElementById('total-lessons').textContent = totalLessons;
     document.getElementById('total-modules').textContent = totalModules;
     document.getElementById('estimated-hours').textContent = estimatedHours;
 }
 
-// Configurar event listeners
+// Setup event listeners
 function setupEventListeners() {
-    // Botão marcar como concluído
+    // Mark as complete button
     document.getElementById('mark-complete').addEventListener('click', toggleLessonCompletion);
     
-    // Botões de navegação
+    // Navigation buttons
     document.getElementById('prev-lesson').addEventListener('click', goToPreviousLesson);
     document.getElementById('next-lesson').addEventListener('click', goToNextLesson);
     
-    // Botão começar curso
+    // Start course button
     document.getElementById('start-course').addEventListener('click', () => {
         if (courseStructure.modules.length > 0 && courseStructure.modules[0].lessons.length > 0) {
             loadLesson(
@@ -416,6 +416,6 @@ function setupEventListeners() {
     });
 }
 
-// Funções globais para uso no HTML
+// Global functions for HTML use
 window.toggleModule = toggleModule;
 window.loadLesson = loadLesson;
