@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Evals for Engineers & PMs - Curso Completo</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1 class="course-title">
+                    <i class="fas fa-robot"></i>
+                    AI Evals
+                </h1>
+                <p class="course-subtitle">Para Engenheiros & PMs</p>
+            </div>
+            
+            <div class="progress-summary">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="overall-progress"></div>
+                </div>
+                <span class="progress-text" id="progress-text">0% completo</span>
+            </div>
+            
+            <nav class="course-navigation">
+                <div class="module-list" id="module-list">
+                    <!-- Módulos serão inseridos aqui via JavaScript -->
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="content-header">
+                <div class="breadcrumb" id="breadcrumb">
+                    <span>Início</span>
+                </div>
+                <div class="lesson-controls">
+                    <button class="btn btn-secondary" id="prev-lesson" disabled>
+                        <i class="fas fa-chevron-left"></i> Anterior
+                    </button>
+                    <button class="btn btn-primary" id="mark-complete">
+                        <i class="fas fa-check"></i> Marcar como Concluído
+                    </button>
+                    <button class="btn btn-secondary" id="next-lesson" disabled>
+                        Próximo <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </header>
+
+            <div class="lesson-content" id="lesson-content">
+                <div class="welcome-screen">
+                    <div class="welcome-content">
+                        <h1>Bem-vindo ao Curso de AI Evals</h1>
+                        <p class="welcome-description">
+                            Aprenda a avaliar e melhorar sistemas de IA de forma sistemática e eficaz. 
+                            Este curso foi projetado para engenheiros e gerentes de produto que querem 
+                            construir sistemas de IA mais confiáveis e seguros.
+                        </p>
+                        
+                        <div class="course-stats">
+                            <div class="stat-card">
+                                <i class="fas fa-book-open"></i>
+                                <div class="stat-info">
+                                    <span class="stat-number" id="total-lessons">0</span>
+                                    <span class="stat-label">Aulas</span>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <i class="fas fa-layer-group"></i>
+                                <div class="stat-info">
+                                    <span class="stat-number" id="total-modules">0</span>
+                                    <span class="stat-label">Módulos</span>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <i class="fas fa-clock"></i>
+                                <div class="stat-info">
+                                    <span class="stat-number" id="estimated-hours">0</span>
+                                    <span class="stat-label">Horas Estimadas</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="getting-started">
+                            <h3>Como começar:</h3>
+                            <ol>
+                                <li>Navegue pelos módulos no menu lateral</li>
+                                <li>Clique em uma aula para começar a estudar</li>
+                                <li>Marque as aulas como concluídas conforme avança</li>
+                                <li>Acompanhe seu progresso no painel lateral</li>
+                            </ol>
+                        </div>
+
+                        <button class="btn btn-primary btn-large" id="start-course">
+                            <i class="fas fa-play"></i> Começar o Curso
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
