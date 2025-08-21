@@ -1,246 +1,275 @@
-# AI Evals for Engineers & PMs  
-## Lesson 1.1 — What is Evaluation?
 
-> **Plain definition:** *Evaluation is the disciplined process of checking whether your system reliably produces the behaviors you intend, under clearly specified conditions, and measuring how well it does so.*
+# Lesson 1.1 — What is Evaluation?
 
-This lesson builds the mental model you’ll reuse throughout the book. We’ll be intentionally practical and concrete, so you can design evaluations for anything from a simple prompt to a multi‑step agentic pipeline.
+Welcome to the first lesson of **AI Evals for Engineers & PMs**. This lesson lays the foundation for everything we’ll cover in the course. By the end of it, you’ll not only have a clear definition of what “evaluation” means in the context of large language models (LLMs) and AI systems, but you’ll also understand **why it matters**, **how it works**, and **how to begin designing your own evaluations**.
 
----
-
-### Learning Objectives
-
-By the end, you should be able to:
-
-1. State a compact definition of evaluation and explain *why* it matters for LLM applications.  
-2. Identify the parts of an LLM system and where evaluation attaches.  
-3. Write a **task statement**, **success rubric**, and **metric** for a concrete feature.  
-4. Distinguish between **offline** vs **online** evaluation, and **code‑based** vs **judge‑based** metrics.  
-5. Avoid the most common pitfalls (leaky test sets, vague rubrics, metric theater).
+Think of this lesson as building your first mental model: a way of framing evaluation that you’ll reuse across prompts, pipelines, and full AI-powered applications.
 
 ---
 
-## 1) The core idea (intuition first)
+## Learning Objectives
 
-Think of evaluation as a **flashlight in a dark room**. Your product (a prompt, tool‑calling chain, or agent) lives inside a complex space of inputs and behaviors. Without a light, you’ll bump into failures randomly—usually in production. With a light, you deliberately illuminate:
+By the end of this lesson, you will be able to:
 
-- **What “good” looks like** (your *intent*),
-- **Where the model deviates** (your *gaps*),
-- **How to move the needle** (your *iteration plan*).
-
-A second analogy: evaluation is like **unit tests + user research + analytics merged for AI**. You still write specs and automated checks, but because outputs are open‑ended language, you supplement with structured **rubrics** and sometimes **LLM‑as‑judge** to scale judgments beyond what code alone can express.
-
----
-
-## 2) Formalizing evaluation in one page
-
-An evaluation always names these ingredients:
-
-- **System (S):** the thing you’re testing (a prompt, a chain, a tool‑calling function, a full app).  
-- **Task (T):** what S is *supposed* to do (e.g., “answer support questions from our policy docs”).  
-- **Inputs (X):** representative scenarios where S will operate (queries, contexts, tool results).  
-- **Outputs (Y):** what S produces for each input.  
-- **Criteria (C):** what makes an output *good enough* (accuracy, safety, tone, format, etc.).  
-- **Metric (M):** a measurable function that maps outputs to a score: `M: (X, Y) → [0,1]` or a label (pass/fail).  
-- **Threshold (θ):** the score you require for ship/keep decisions.  
-- **Decision (D):** the action you take given the score (ship, roll back, refine).
-
-> **One‑liner:** *Evaluation is turning your intent (C) into a measurement (M) over representative inputs (X) so you can make a decision (D) about a system (S) performing a task (T).*
+* **Define evaluation** in a compact, precise way.
+* **Explain why evaluation matters** specifically for LLM-based applications.
+* **Identify where evaluation attaches** inside an LLM system.
+* **Write your first evaluation plan**, including a task statement, rubric, and metric.
+* **Distinguish key categories of evaluation**, such as offline vs. online, or code-based vs. judge-based.
+* **Recognize and avoid common pitfalls**, such as leaky test sets or vague rubrics.
 
 ---
 
-## 3) Where evaluation attaches in an LLM application
+## 1. Why Evaluation Matters (Intuition First)
 
-LLM apps are pipelines. You can (and should) evaluate at **multiple levels**:
+Imagine entering a dark room filled with furniture. Without a flashlight, you’ll stumble around blindly, tripping over chairs and bumping into walls. That’s what it feels like to develop an AI system without proper evaluation. Failures will emerge only after you’ve deployed, when it’s often too late or too costly to fix them.
 
-1. **Prompt/Function level** — “Does this prompt reliably format extraction as JSON?”  
-2. **Component level** — “Does the retriever return documents that contain the answer?”  
-3. **End‑to‑end (system) level** — “Given a user question, does the final reply meet our policy and solve the user’s need?”  
-4. **Guardrails/Safety layer** — “Are toxic/PII outputs blocked without over‑blocking valid requests?”  
-5. **Ops level** — **latency** and **cost** budgets under realistic load.
+Now imagine switching on a flashlight. Suddenly, you can see:
 
-> **Takeaway:** don’t only measure end‑to‑end “vibes.” Keep **instrumentation** (traces, intermediate artifacts) so you can locate the failure *stage* (retrieval vs reasoning vs formatting vs tools).
+* **What “good” looks like** — the paths you want to follow.
+* **Where your system deviates** — the hidden obstacles.
+* **How to iterate effectively** — where to focus improvements next.
 
----
+This flashlight is **evaluation**. It helps you deliberately illuminate your system’s behavior instead of leaving success to chance.
 
-## 4) What counts as “good”? Designing the success rubric
-
-For LLM work, **“correct”** is usually not a single string. You need a **rubric**—a short checklist that a judge (human or model) can apply consistently.
-
-**Example rubric for policy‑grounded answers (RAG):**  
-For each response, check:
-
-1. **Grounding:** All factual claims are supported by cited retrieved docs.  
-2. **Completeness:** The main question is fully answered; key constraints are respected.  
-3. **Faithfulness (No Fabrication):** No claims absent from the sources.  
-4. **Safety & Compliance:** No sensitive data leaks; policy‑violating advice is refused.  
-5. **Format & Helpfulness:** Clear structure, actionable steps, required format followed.
-
-You can score each item 0/1 (pass/fail) or 0–3 (Likert). The overall metric is the average or a weighted sum. **Weights** reflect business priorities (e.g., faithfulness>style).
-
-> **Tip:** Keep the rubric **short (3–7 bullets)**, concrete, and **domain‑specific**. Vague rubrics produce noisy, unactionable measurements.
+Another analogy: evaluation is the **fusion of unit tests, user research, and analytics**—all tailored for AI. Like unit tests, you specify expectations. Like user research, you check if outputs meet human needs. Like analytics, you measure performance over time. But because AI outputs are open-ended, evaluation requires new tools: structured rubrics and sometimes even using an LLM as a judge.
 
 ---
 
-## 5) Types of evaluation you’ll use
+## 2. A Formal Definition of Evaluation
 
-### A. By *when* you measure
-- **Offline (pre‑deployment):** You run on a held‑out dataset. Fast, cheap, reproducible. Great for iteration and CI.  
-- **Online (post‑deployment):** Real users, A/B tests, bandits, and **guardrail monitors**. The only source of truth for long‑term product impact.
+Here’s the one-sentence definition you should memorize:
 
-### B. By *how* you measure
-- **Code‑based metrics:** exact match, regex checks, numbers within tolerance, JSON validity, latency, cost. Objective, cheap.  
-- **Judge‑based metrics:** human raters or **LLM‑as‑judge** applying your rubric. Captures quality dimensions that code can’t (helpfulness, tone, reasoning faithfulness).
+**Evaluation is the disciplined process of checking whether your system reliably produces the intended behavior under clearly specified conditions, and measuring how well it does so.**
 
-### C. By *what* you measure
-- **Task success:** Did it solve the user’s problem? (pass@1, win‑rate, success‑rate)  
-- **Quality & UX:** helpfulness, clarity, tone, formatting, instruction‑following.  
-- **Safety & Compliance:** toxicity, PII, medical/financial policy adherence, jailbreak resistance.  
-- **Robustness:** performance under paraphrase, long inputs, tool failures, out‑of‑domain cases.  
-- **Cost & Latency:** dollars and milliseconds under load; tail latencies (p95/p99).  
-- **Fairness/Group metrics:** does performance vary by segment (language, country, device)?
+To make this practical, every evaluation includes the following **ingredients**:
 
-> **Multi‑objective reality:** you’ll balance *success*, *safety*, *cost*, and *latency*. Make trade‑offs explicit.
+* **System (S):** The thing you’re testing (prompt, pipeline, full app).
+* **Task (T):** What the system is supposed to do.
+* **Inputs (X):** Representative scenarios or test cases.
+* **Outputs (Y):** What the system produces.
+* **Criteria (C):** The rules that define “good enough.”
+* **Metric (M):** A measurable function that translates outputs into scores.
+* **Threshold (θ):** The minimum acceptable score.
+* **Decision (D):** The action you’ll take based on results.
 
----
+A compact formula is:
 
-## 6) Concrete mini‑examples (engineer & PM friendly)
+**Evaluation = Intent (C) → Measurement (M) → Decision (D)**
 
-### Example 1 — JSON Extraction Tool
-**Task:** Extract `{total_amount_cents, due_date}` from emails.  
-**Inputs:** 500 real emails, stratified by vendor, language, and format.  
-**Rubric:**  
-- JSON parses (code‑metric).  
-- `total_amount_cents` exact numeric match within ±1 cent (code‑metric).  
-- `due_date` within ±1 day (code‑metric).  
-- **Failure categories** logged (missing currency, ambiguity).  
-**Threshold:** ≥ 98% pass for both fields on each vendor segment.  
-**Decision:** Ship only if every key segment clears 98% (prevents hidden regressions).
-
-### Example 2 — Policy‑Answering RAG Bot
-**Task:** Answer merchant policy questions using internal docs.  
-**Inputs:** 400 real queries sampled from support; each has a canonical doc span.  
-**Rubric (judge‑based):** grounding, completeness, faithfulness, safety, formatting.  
-**Metric:** LLM‑as‑judge 0–3 per item; average ≥ 2.6 with **no safety rubric item < 2**.  
-**Ops gates:** median latency < 2.0s, p95 < 4.0s; cost < $0.015 per answer.  
-**Decision:** If quality passes but p95 exceeds 4s, do not ship—fix retrieval chunking or caching first.
-
-### Example 3 — Chargeback Reason Classifier (PM, risk)
-**Task:** Classify dispute reason codes from merchant narratives.  
-**Metric:** Macro‑F1 across classes (code‑metric) + **consistency** on unchanged inputs week‑to‑week.  
-**Guardrail:** Manual audit of top‑loss merchants monthly; alert if class drift > 8%.
+Put simply, evaluation is about turning **intent** into **evidence**.
 
 ---
 
-## 7) Building a minimal evaluation (step‑by‑step template)
+## 3. Where Evaluation Lives in LLM Applications
 
-Use this **one‑page template** whenever you create/modify a feature:
+Modern LLM systems are not monoliths; they are **pipelines**. A single app might include prompts, retrieval steps, tool calls, reasoning chains, and safety filters. Failures can occur at any stage.
 
-1. **Task Statement (one sentence).**  
-2. **User/Business Goal:** Why it matters; the decision the metric will inform.  
-3. **Representative Inputs:** Sampling plan (sources, segments, sizes).  
-4. **Success Rubric:** 3–7 bullets, weighted if needed.  
-5. **Metric Definition:** Code checks and/or judge prompt.  
-6. **Thresholds & Budgets:** quality gate, safety gate, latency/cost budgets.  
-7. **Test Design:** splits (dev/val/holdout), size per split, random seeds, reproducibility.  
-8. **Failure Taxonomy (initial):** probable modes you’ll tag in error analysis.  
-9. **CI Plan:** when it runs (PRs, nightly), how regressions block merges.  
-10. **Logging Plan:** traces to store (inputs, retrieved docs, tools, outputs, judge scores).
+You should therefore evaluate at multiple levels:
 
-> **Rule of thumb for sample sizes:** start with **100–300** examples per key segment to detect large effects; grow as you near launch. Keep a **frozen holdout** for final decisions.
+1. **Prompt or Function level**
+   *“Does this prompt reliably return JSON?”*
 
----
+2. **Component level**
+   *“Does the retriever return documents that actually contain the answer?”*
 
-## 8) Judge prompts & reliability in one page
+3. **End-to-end system level**
+   *“Does the final user-facing response meet policy requirements and solve the user’s problem?”*
 
-When using **LLM‑as‑judge**, reliability hinges on *clear instructions* and *calibration*.
+4. **Guardrails and Safety**
+   *“Does the system block toxic outputs without blocking safe ones?”*
 
-**Write the judge prompt like this:**
+5. **Operational level**
+   *“Does the system stay within latency and cost budgets under real-world load?”*
 
-- **Role + goal:** “You are a strict evaluator of policy‑grounded answers.”  
-- **Rubric with definitions and examples:** include 1–2 *positive* and *negative* examples per rubric item.  
-- **Structured output:** fixed JSON fields, one per rubric item, plus a short justification.  
-- **Temperature 0** (or as low as your model supports).
-
-**Calibration loop:**  
-- Compare LLM judge to a small set of **human‑labeled gold** (e.g., 50–100 items).  
-- Compute agreement (e.g., % exact, or correlation).  
-- If drift > acceptable range (say, >10–15% disagreement), refine the rubric/examples.
-
-> **Key point:** judges don’t need to be perfect; they must be **consistent enough** to rank variants and block obvious regressions. You can still do **human audits** on critical slices.
+The key lesson: don’t just measure vague “end-to-end vibes.” Keep instrumentation so you know **where in the pipeline the failure occurred**.
 
 ---
 
-## 9) Offline vs online: how they fit together
+## 4. What Counts as “Good”? Designing a Success Rubric
 
-- **Offline** is for **iteration** and **guarding regressions** (fast feedback, CI).  
-- **Online** is for **business truth** (retention, conversion, ticket deflection).
+Unlike classical software, “correct” in LLM systems is rarely a single string. Instead, we rely on **rubrics**—short checklists that judges (human or model) can apply consistently.
 
-A healthy lifecycle looks like this:
+For example, imagine a **retrieval-augmented generation (RAG)** bot that answers policy questions. A good rubric could be:
 
-1. **Instrument** your system → collect traces.  
-2. **Bootstrap** an offline set → run evaluations → pick the best contender.  
-3. **Ship behind a flag** → run online A/B with safety monitors.  
-4. **Analyze errors** from both offline and online → expand datasets → improve.  
-5. **Automate** the offline eval as CI so future changes can’t regress silently.
+* **Grounding:** All claims are backed by retrieved documents.
+* **Completeness:** The main question is fully answered.
+* **Faithfulness:** No fabrications beyond retrieved sources.
+* **Safety & Compliance:** No leaks of sensitive data; policy rules respected.
+* **Format & Helpfulness:** Clear, structured, and actionable.
 
----
+Each rubric item can be scored **0/1** (fail/pass) or on a **Likert scale (0–3)**. The overall score might be an average or weighted sum.
 
-## 10) Common pitfalls (and how to avoid them)
-
-1. **Vague success criteria** → Write a rubric that another engineer could apply without guessing.  
-2. **Leaky test sets** → Freeze a holdout; don’t tune on it. Keep generation prompts and seeds fixed.  
-3. **Metric theater** → Pick metrics tied to a **product decision** (e.g., “block shipping if faithfulness < 2.6”).  
-4. **Single global average** → Break down by **segments** (language, country, channel). Regressions hide in averages.  
-5. **Ignoring cost/latency** → Budget and track **p95**; slow “great” systems fail in production.  
-6. **No failure taxonomy** → If you don’t tag errors, you won’t know *what to fix*.  
-7. **Judge drift** → Re‑calibrate LLM‑as‑judge with periodic human audits.  
-8. **No reproducibility** → Fix seeds, snapshot prompts, version datasets; log hashes.
+👉 **Tip:** Keep rubrics **short (3–7 bullets), concrete, and domain-specific**. If your rubric is vague, your evaluation will be noisy and unhelpful.
 
 ---
 
-## 11) Tiny checklist you can copy into a PR
+## 5. Types of Evaluation
 
-- [ ] Task statement and business goal written.  
-- [ ] Representative dataset created with segments + sizes documented.  
-- [ ] Rubric (3–7 bullets) agreed with PM & Eng.  
-- [ ] Metrics implemented (code &/or judge) with structured outputs.  
-- [ ] Thresholds & budgets set; CI wired to block on failures.  
-- [ ] Failure taxonomy defined; error tagging enabled.  
-- [ ] Prompts, seeds, datasets versioned; traces stored.  
-- [ ] Plan for online A/B + safety monitors.
+Evaluations can be categorized along three key dimensions:
 
----
+### A. When You Measure
 
-## 12) Hands‑on micro‑exercise (do now)
+* **Offline:** Run tests before deployment on a fixed dataset. Fast, reproducible, and good for iteration.
+* **Online:** Measure in production with real users (A/B tests, live monitoring). The only true measure of long-term impact.
 
-Pick a feature you care about (e.g., “Agent writes a WhatsApp follow‑up to a debtor”). Write:
+### B. How You Measure
 
-1. **Task:** “Given debtor’s last message + policy snippets, draft a persuasive, compliant follow‑up.”  
-2. **Rubric (5 bullets):** grounding, completeness, safety/compliance, tone appropriateness, required format.  
-3. **Metric:** LLM‑as‑judge with JSON output (0–3 each).  
-4. **Dataset:** 150 real conversations across three debtor personas.  
-5. **Thresholds:** avg ≥ 2.7, no safety item < 2; p95 latency < 3.5s; cost < $0.01.  
-6. **Decision rule:** Ship only if *all* personas clear the threshold.
+* **Code-based metrics:** Objective checks like regexes, JSON validity, numeric matches, latency.
+* **Judge-based metrics:** Subjective checks by human raters or LLM-as-judge applying your rubric.
 
-If you can write the six items above clearly, you have a viable evaluation.
+### C. What You Measure
 
----
+* **Task success:** Did it solve the problem?
+* **Quality & UX:** Tone, helpfulness, formatting.
+* **Safety & Compliance:** Toxicity, PII handling, policy adherence.
+* **Robustness:** Performance under paraphrases, long contexts, edge cases.
+* **Cost & Latency:** Time and money budgets.
+* **Fairness:** Consistency across user segments.
 
-## 13) Key takeaways (TL;DR)
-
-- Evaluation = **intent → measurement → decision**.  
-- Use **rubrics** to define “good,” then measure with **code** and/or **judges**.  
-- Evaluate at **multiple levels** (prompt, component, end‑to‑end, safety, ops).  
-- Combine **offline** (fast iteration) with **online** (business truth).  
-- Avoid pitfalls: vague rubrics, leaky test sets, averages that hide regressions, ignoring cost/latency.
+In reality, you’ll balance multiple objectives simultaneously (success vs. cost vs. safety).
 
 ---
 
-### Optional further reading (for context)
-- Classic IR/NLP metrics (EM, F1, ROUGE, BLEU) are useful but insufficient for open‑ended answers—pair them with rubric‑based judging.  
-- Preference‑based evaluations (pairwise win‑rate, Elo) are powerful for model comparisons; you’ll meet them again in later lessons.
+## 6. Concrete Mini-Examples
+
+Let’s make this real with three examples:
+
+### Example 1: JSON Extraction Tool
+
+* **Task:** Extract `{total_amount_cents, due_date}` from invoices.
+* **Inputs:** 500 real invoices across vendors and formats.
+* **Rubric:**
+
+  * JSON parses correctly.
+  * `total_amount_cents` within ±1 cent.
+  * `due_date` within ±1 day.
+* **Threshold:** ≥ 98% accuracy per vendor segment.
+* **Decision:** Ship only if every segment clears threshold.
+
+### Example 2: Policy-Answering RAG Bot
+
+* **Task:** Answer merchant policy questions.
+* **Rubric:** Grounding, completeness, faithfulness, safety, formatting.
+* **Metric:** LLM-as-judge (0–3 per item).
+* **Ops Gates:** Latency < 2s (median), < 4s (p95).
+* **Decision:** Don’t ship if latency budget fails, even if quality is good.
+
+### Example 3: Chargeback Reason Classifier
+
+* **Task:** Classify dispute reason codes.
+* **Metric:** Macro-F1 + weekly consistency.
+* **Guardrail:** Manual audit of top-loss merchants; alert if drift > 8%.
 
 ---
 
-*End of Lesson 1.1 — What is Evaluation?*
+## 7. How to Build a Minimal Evaluation (Template)
+
+Every evaluation you design should include:
+
+1. **Task Statement**
+2. **User/Business Goal**
+3. **Representative Inputs**
+4. **Success Rubric**
+5. **Metric Definition**
+6. **Thresholds & Budgets**
+7. **Test Design**
+8. **Failure Taxonomy**
+9. **CI Plan**
+10. **Logging Plan**
+
+👉 Rule of thumb: Start with **100–300 examples per key segment**. Expand later.
+
+---
+
+## 8. Judge Prompts & Reliability
+
+When using LLMs as judges, reliability is critical.
+
+**Best practices:**
+
+* Write explicit instructions with positive and negative examples.
+* Use structured outputs (e.g., JSON with scores).
+* Set temperature = 0 for determinism.
+* Calibrate against a gold set (50–100 human-labeled cases).
+* Accept some imperfection—what matters is **consistency**.
+
+---
+
+## 9. Offline vs. Online Evaluation Lifecycle
+
+A healthy evaluation workflow looks like this:
+
+1. Collect traces.
+2. Build offline datasets.
+3. Iterate offline.
+4. Deploy behind a flag.
+5. Run online A/B testing.
+6. Expand datasets with new failure cases.
+7. Automate offline eval in CI to prevent regressions.
+
+---
+
+## 10. Common Pitfalls
+
+* **Vague rubrics:** Always write clear, concrete items.
+* **Leaky test sets:** Keep a frozen holdout set.
+* **Metric theater:** Don’t measure for the sake of optics—tie metrics to real decisions.
+* **Overreliance on averages:** Segment your data.
+* **Ignoring latency/cost:** Track p95/p99, not just averages.
+* **No failure taxonomy:** Tagging errors helps you fix them.
+* **Judge drift:** Recalibrate periodically.
+* **No reproducibility:** Fix seeds, snapshot prompts, version datasets.
+
+---
+
+## 11. Evaluation Checklist (For PRs)
+
+Before shipping, confirm:
+
+* [ ] Task statement written.
+* [ ] Representative dataset created.
+* [ ] Rubric agreed with PM/Eng.
+* [ ] Metrics implemented.
+* [ ] Thresholds set; CI blocks failures.
+* [ ] Failure taxonomy in place.
+* [ ] Prompts and seeds versioned.
+* [ ] Online A/B plan ready.
+
+---
+
+## 12. Hands-On Micro-Exercise
+
+**Your Turn:** Imagine you’re building an AI assistant that writes **WhatsApp follow-ups to debtors**.
+
+* **Task:** Draft a persuasive, compliant follow-up.
+* **Rubric:** Grounding, completeness, safety, tone, format.
+* **Metric:** LLM-as-judge scoring (0–3).
+* **Dataset:** 150 conversations, 3 debtor personas.
+* **Thresholds:** Average ≥ 2.7, no safety item < 2, latency < 3.5s.
+* **Decision:** Ship only if all personas clear the bar.
+
+If you can write these six items clearly, you already know how to evaluate.
+
+---
+
+## 13. Key Takeaways (TL;DR)
+
+* **Evaluation = intent → measurement → decision.**
+* Define “good” using rubrics.
+* Evaluate at multiple pipeline levels.
+* Combine offline (iteration) and online (truth).
+* Avoid pitfalls like vague rubrics, leaky sets, or ignoring cost.
+
+---
+
+## Optional Further Reading
+
+* Classic metrics: EM, F1, ROUGE, BLEU.
+* Preference-based evaluations: win-rates, Elo scores.
+* Emerging methods: simulation environments, counterfactual robustness.
+
+---
+
+**End of Lesson 1.1 — What is Evaluation?**
 

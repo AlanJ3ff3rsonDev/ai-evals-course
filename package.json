@@ -1,0 +1,16 @@
+{
+  "name": "ai-evals-course",
+  "version": "1.0.0",
+  "description": "AI Evals Course Website",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": ["ai", "evaluation", "course", "education"],
+  "author": "AlanJ3ff3rsonDev",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
